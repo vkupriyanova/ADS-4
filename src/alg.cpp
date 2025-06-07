@@ -50,10 +50,9 @@ int countPairs3(int *arr, int len, int value) {
   for (int i = 0; i < len; ++i) {
     int complementt = value - arr[i];
     if (freq.find(complementt) != freq.end()) {
-      count += freq[complementt];
+      countt += freq[complementt];
     }
     ++freq[arr[i]];
   }
-  
   return countt;
 }
