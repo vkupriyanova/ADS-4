@@ -46,6 +46,7 @@ int countPairs2(int *arr, int len, int value) {
 int countPairs3(int *arr, int len, int value) {
   int countt = 0;
   for (int i = 0; i < len - 1; ++i) {
+    if (i > 0 && arr[i] == arr[i - 1]) continue;
     int mark = value - arr[i];
     int leftt = i + 1, rightt = len - 1;
     while (leftt <= rightt) {
