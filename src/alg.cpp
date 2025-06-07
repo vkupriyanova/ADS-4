@@ -1,5 +1,5 @@
 // Copyright 2021 NNTU-CS
-#include <algorithm>
+#include <unordered_map>
 int countPairs1(int *arr, int len, int value) {
   int countt = 0;
   for (int i = 0; i < len - 1; ++i) {
@@ -45,15 +45,14 @@ int countPairs2(int *arr, int len, int value) {
   return countt;
 }
 int countPairs3(int *arr, int len, int value) {
-  std::sort(arr, arr + len);
+  std::unordered_map<int, int> freq;
   int countt = 0;
   for (int i = 0; i < len; ++i) {
-    int mark = value - arr[i];
-    int leftt = std:: lower_bound(arr + i + 1, arr + len, mark) - arr;
-    int rightt = std:: upper_bound(arr + i + 1, arr + len, mark) - arr - 1;
-    if (leftt < rightt) {
-      countt += rightt - leftt - 1;
+    int complementt = value - arr[i];
+    if (freq.find(complementt) != freq.end()) {
+      countt += freq[complementt];
     }
+    ++freq[arr[i]];
   }
   return countt;
 }
