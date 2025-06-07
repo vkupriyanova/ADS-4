@@ -1,4 +1,5 @@
 // Copyright 2021 NNTU-CS
+#include <algorithm>
 int countPairs1(int *arr, int len, int value) {
   int countt = 0;
   for (int i = 0; i < len - 1; ++i) {
@@ -44,33 +45,14 @@ int countPairs2(int *arr, int len, int value) {
   return countt;
 }
 int countPairs3(int *arr, int len, int value) {
+  std::sort(arr, arr + len);
   int countt = 0;
   for (int i = 0; i < len; ++i) {
     int mark = value - arr[i];
-    int leftt = i + 1;
-    int rightt = len - 1;
-    while (leftt <= rightt) {
-      int midPos = leftt + (rightt - leftt) / 2;
-      if (arr[midPos] >= mark) {
-        rightt = midPos - 1;
-      } else {
-        leftt = midPos + 1;
-      }
-    }
-    int start = leftt;
-    leftt = i + 1;
-    rightt = len - 1;
-    while (leftt <= rightt) {
-      int midPos = leftt + (rightt - leftt) / 2;
-      if (arr[midPos] <= mark) {
-        leftt = midPos + 1;
-      } else {
-        rightt = midPos - 1;
-      }
-    }
-    int end = rightt;
-    if (start <= end) {
-      countt += end - start + 1;
+    int leftt = std:: lower_bound(arr + i + 1, arr + len, mark) - arr;
+    int rightt = std:: upper_bound(arr + i + 1, arr + len, mark) - arr - 1;
+    if (leftt < rightt) {
+      countt += rightt - leftt - 1;
     }
   }
   return countt;
