@@ -17,6 +17,11 @@ int countPairs2(int *arr, int len, int value) {
     int summa;
     summa = arr[leftt] + arr[rightt];
     if (summa == value) {
+      if (arr[leftt] == arr[right]){
+        int n = rightt - leftt +1;
+        countt += (n * (n - 1)) / 2;
+        break;
+      }
       int lefttCountt = 1;
       while (leftt + 1 < rightt && arr[leftt] == arr[leftt + 1]) {
         ++lefttCountt;
@@ -44,25 +49,27 @@ int countPairs3(int *arr, int len, int value) {
     int mark = value - arr[i];
     int leftt = i + 1, rightt = len - 1;
     while (leftt <= rightt) {
-      int midPos = leftt + (rightt - leftt)/2;
-      if (arr[midPos] == mark) {
-        int Temp = midPos;
-        while (Temp >= leftt && arr[Temp] == mark) {
-          ++countt;
-          --Temp;
-        }
-        Temp = midPos + 1;
-        while (Temp <= rightt && arr[Temp] == mark) {
-          ++countt;
-          ++Temp;
-        }
-        break;
-      } else if (arr[midPos] < mark) {
+      int midPos = leftt + (rightt - leftt) / 2;
+      if (arr[midPos] < mark) {
         leftt = midPos + 1;
       } else {
         rightt = midPos - 1;
+        }
       }
-    }
+      int start = leftt;
+      leftt = i + 1, rightt = len - 1;
+      while (leftt <= rightt) {
+        int midPos = leftt + (rightt - leftt) / 2;
+        if (arr[midPos] <= mark) {
+          leftt = midPos + 1;
+        } else {
+          rightt = midPos - 1;
+        }
+      }
+      int end = rightt;
+      if (start <= end) {
+        countt += end - start + 1;
+      }  
   }
   return countt;
 }
