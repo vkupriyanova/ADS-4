@@ -1,7 +1,7 @@
 // Copyright 2021 NNTU-CS
 int countPairs1(int *arr, int len, int value) {
   int countt = 0;
-  for (int i = 0; i < len - 1;++i) {
+  for (int i = 0; i < len - 1; ++i) {
     for (int j = i + 1; j < len; ++j) {
       if (arr[i] + arr[j] == value) {
         ++countt;
@@ -13,8 +13,9 @@ int countPairs1(int *arr, int len, int value) {
 int countPairs2(int *arr, int len, int value) {
   int countt = 0;
   int leftt = 0, rightt = len -1;
-  while (left < right) {
-    int summa = arr[leftt] + arr[rightt];
+  while (leftt < rightt) {
+    int summa;
+    summa = arr[leftt] + arr[rightt];
     if (summa = value) {
       int lefttCountt = 1;
       while (leftt + 1 < rightt && arr[leftt] == arr[leftt + 1]) {
@@ -29,11 +30,9 @@ int countPairs2(int *arr, int len, int value) {
       countt += lefttCountt * righttCountt;
       ++leftt;
       --rightt;
-    }
-    else if (summa < value) {
+    } else if (summa < value) {
       ++leftt;
-    }
-    else {
+    } else {
       --rightt;
     }
   }
@@ -44,7 +43,7 @@ int countPairs3(int *arr, int len, int value) {
   for (int i = 0; i < len - 1; ++i) {
     int mark = value - arr[i];
     int leftt = i + 1, rightt = len - 1;
-    while (leftt<=rightt) {
+    while (leftt <= rightt) {
       int midPos = leftt + (rightt - leftt)/2;
       if (arr[midPos] == mark) {
         int Temp = midPos;
@@ -58,11 +57,9 @@ int countPairs3(int *arr, int len, int value) {
           ++Temp;
         }
         break;
-      }
-      else if (arr[midPos] < mark) {
+      } else if (arr[midPos] < mark) {
         leftt = midPos + 1;
-      }
-      else {
+      } else {
         rightt = midPos - 1;
       }
     }
