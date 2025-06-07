@@ -1,5 +1,6 @@
 // Copyright 2021 NNTU-CS
 #include <unordered_map>
+#include <algorithm>
 int countPairs1(int *arr, int len, int value) {
   int countt = 0;
   for (int i = 0; i < len - 1; ++i) {
@@ -12,6 +13,7 @@ int countPairs1(int *arr, int len, int value) {
   return countt;
 }
 int countPairs2(int *arr, int len, int value) {
+  std::sort (arr, arr + len);
   int countt = 0;
   int leftt = 0, rightt = len -1;
   while (leftt < rightt) {
